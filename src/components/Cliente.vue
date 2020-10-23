@@ -1,12 +1,10 @@
 <template>
-<div id="cliente">
-            <h4>Nome:{{nome}}</h4>
+<div :class="{'cliente':!isPremium,'clientePremium':isPremium}">
+            <h4>Nome:{{cliente.nome}}</h4>
             <hr>
-            <p>{{descricao}}</p>
-            <hr>
-            <p>Numero:{{numero}}</p>
-            <p>Email:{{email}}</p>
-            <p>Idade:{{idade}}</p>
+            <p>Email:{{cliente.email}}</p>
+            <p> Idade:{{cliente.idade}}</p>
+            <button @click="changeColor">Clique aqui</button>
   
 </div> 
 </template>
@@ -14,27 +12,38 @@
 export default {
     data(){
             return{
-                
+                isPremium: false
                 }
 
     },
     props:{
-        nome:String,
-        numero:String,
-        email:String,
-        idade:Number,
-        descricao:String
+        cliente: Object,
+        showAge: Boolean
+
+    },
+    methods: {
+
+            changeColor : function(){
+                this.isPremium = !this.isPremium
+            }
 
     }
 }
 </script>
 
 <style scoped>
-div #cliente{
+.cliente{
     background : linear-gradient(329.54deg,#76d6df 0%,#1bb1bf 100%);
     padding:1%;
     width: 300px;
-    height: 250px;
+    height: 300px;
+    margin-top:1%;
+}
+.clientePremium{
+    background : linear-gradient(329.54deg,#ae9b0a 0%,#e8d909 100%);
+    padding:1%;
+    width: 300px;
+    height: 300px;
     margin-top:1%;
 }
 </style>
