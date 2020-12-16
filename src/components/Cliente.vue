@@ -2,10 +2,11 @@
 <div :class="{'cliente':!isPremium,'clientePremium':isPremium}">
             <h4>Nome:{{cliente.nome}}</h4>
             <hr>
-            <p>Email:{{cliente.email}}</p>
+            <p>Email:{{cliente.email | caps}}</p>
             <p> Idade:{{cliente.idade}}</p>
             <button @click="changeColor">Clique aqui</button>
-  
+            <button @click="emitirEvento">Deletar</button>
+            <h4>idEspecial: {{idEspecial}}</h4>
 </div> 
 </template>
 <script>
@@ -25,8 +26,25 @@ export default {
 
             changeColor : function(){
                 this.isPremium = !this.isPremium
+            },
+            emitirEvento: function(){
+                console.log('Deletado')
+                this.$emit("meDelete",{
+                   idDoCliente: this.cliente.id ,nome:"gabriel", emPromocao:true, component: this
+                })
+            
             }
 
+    },
+     filters:{
+        caps: function(value){
+                return value.toUpperCase()
+        }
+    },
+    computed:{
+        idEspecial: function(){
+            return (this.cliente.email + this.cliente.nome + this.cliente.id).toUpperCase() 
+        }
     }
 }
 </script>
